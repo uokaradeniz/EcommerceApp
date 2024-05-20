@@ -85,6 +85,12 @@
                         </li>
                     </ul>
                 </li>
+                <li>
+                    <a href="order_list.php">
+                        <i class="fa fa-angle-double-right"></i>
+                        ORDERS
+                    </a>
+                </li>
             </ul>
 
         </nav> <!-- #sidebar -->
