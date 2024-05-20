@@ -11,12 +11,27 @@ if(isset($_POST['add_product'])) {
     $product_description = $_POST['product_description'];
     $category_id = $_POST['category_id'];
 
-    $sql_add_product = "INSERT INTO products (product_name, product_price, stock_quantity, product_description, category_id) 
-                        VALUES ('$product_name', '$product_price', '$stock_quantity', '$product_description', '$category_id')";
-    if ($conn->query($sql_add_product) === TRUE) {
-        echo "Ürün başarıyla eklendi.";
+    $target_dir = "uploads/"; 
+    $target_file = $target_dir . basename($_FILES["product_image"]["name"]); 
+    $uploadOk = 1;
+
+    $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
+    if (move_uploaded_file($_FILES["product_image"]["tmp_name"], $target_file)) {
+        echo "File Uploaded Successfully.";
     } else {
-        echo "Ürün eklenirken hata oluştu: " . $conn->error;
+        echo "Error while uploading the file.";
+        $uploadOk = 0;
+    }
+
+    if ($uploadOk && isset($target_file)) {
+        $sql_add_product = "INSERT INTO products (product_name, product_price, stock_quantity, product_description, category_id, product_image) 
+                            VALUES ('$product_name', '$product_price', '$stock_quantity', '$product_description', '$category_id', '$target_file')";
+        if ($conn->query($sql_add_product) === TRUE) {
+            echo "Product added successfully.";
+        } else {
+            echo "Error while adding the product: " . $conn->error;
+        }
     }
 }
 ?>
@@ -24,19 +39,19 @@ if(isset($_POST['add_product'])) {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Ürün Yönetimi</title>
+    <title>Add Product</title>
 </head>
 <body>
 
-<h2>Ürün Ekle</h2>
-<a href="dashboard.php">Get back to the Dashboard</a>
+<h2>Add Product</h2>
+<a href="dashboard.php">Return to the Dashboard</a>
 
-<form method="post" action="">
-    Ürün Adı: <input type="text" name="product_name"><br>
-    Fiyat: <input type="text" name="product_price"><br>
-    Stok Miktarı: <input type="text" name="stock_quantity"><br>
-    Açıklama: <textarea name="product_description"></textarea><br>
-    Kategori: 
+<form method="post" action="" enctype="multipart/form-data">
+    Product Name: <input type="text" name="product_name"><br>
+    Price: <input type="text" name="product_price"><br>
+    Stock Quantity: <input type="text" name="stock_quantity"><br>
+    Description: <textarea name="product_description"></textarea><br>
+    Category: 
     <select name="category_id">
         <?php
         if ($result_categories->num_rows > 0) {
@@ -44,11 +59,12 @@ if(isset($_POST['add_product'])) {
                 echo "<option value='" . $row["category_id"] . "'>" . $row["category_name"] . "</option>";
             }
         } else {
-            echo "<option value=''>Kategori bulunamadı.</option>";
+            echo "<option value=''>Categories not found.</option>";
         }
         ?>
     </select><br>
-    <input type="submit" name="add_product" value="Ürün Ekle">
+    Choose a File: <input type="file" name="product_image"><br> 
+    <input type="submit" name="add_product" value="Submit">
 </form>
 </body>
 </html>

@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input type="text" id="category_name" name="category_name" required><br><br>
         <label for="category_order">Category Order:</label><br>
         <input type="number" id="category_order" name="category_order" required><br><br>
-        <input type="submit" value="Add">
+        <input type="submit" value="Submit">
     </form>
 </body>
 </html>
