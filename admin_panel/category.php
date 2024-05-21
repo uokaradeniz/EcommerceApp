@@ -111,7 +111,7 @@ $result_products = $conn->query($sql_products);
         </div>
     </main>
     <footer>
-        <p>&copy; 2024 E-Ticaret Sitesi</p>
+        <p>UOKBurada.com E-Commerce</p>
     </footer>
 </body>
 </html>
