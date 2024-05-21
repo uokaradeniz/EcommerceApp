@@ -2,39 +2,12 @@
 // Veritabanı bağlantısı
 include 'db_connect.php';
 
+// Kategori bilgilerini getir
+$sql_categories = "SELECT * FROM category_table";
+$result_categories = $conn->query($sql_categories);
+
 if(isset($_POST['edit_product'])) {
-    $product_id = $_POST['product_id'];
-    $product_name = $_POST['product_name'];
-    $product_price = $_POST['product_price'];
-    $stock_quantity = $_POST['stock_quantity'];
-    $product_description = $_POST['product_description'];
-    $category_id = $_POST['category_id'];
-
-    // Dosya yükleme işlemi
-    $target_dir = "uploads/"; // Resimlerin yükleneceği dizin
-    $target_file = $target_dir . basename($_FILES["product_image"]["name"]); // Yüklenecek dosyanın tam yolu
-    $uploadOk = 1; // Yükleme işlemi başarılı mı?
-
-    // Dosya türünü kontrol etmek için bir değişken
-    $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-
-    // Dosyayı sunucuya yükle
-    if (move_uploaded_file($_FILES["product_image"]["tmp_name"], $target_file)) {
-        echo "Dosya başarıyla yüklendi.";
-    } else {
-        echo "Dosya yüklenirken bir hata oluştu.";
-        $uploadOk = 0;
-    }
-
-    // Veritabanına ürünü güncelleme
-    if ($uploadOk) {
-        $sql_edit_product = "UPDATE products SET product_name='$product_name', product_price='$product_price', stock_quantity='$stock_quantity', product_description='$product_description', category_id='$category_id', product_image='$target_file' WHERE product_id='$product_id'";
-        if ($conn->query($sql_edit_product) === TRUE) {
-            echo "Ürün başarıyla güncellendi.";
-        } else {
-            echo "Ürün güncellenirken hata oluştu: " . $conn->error;
-        }
-    }
+    // Diğer kodlar buraya yerleştirilecek
 }
 
 // Ürün bilgilerini getirme
@@ -62,8 +35,21 @@ if(isset($_POST['product_id'])) {
     Fiyat: <input type="text" name="product_price" value="<?php echo $row["product_price"]; ?>"><br>
     Stok Miktarı: <input type="text" name="stock_quantity" value="<?php echo $row["stock_quantity"]; ?>"><br>
     Açıklama: <textarea name="product_description"><?php echo $row["product_description"]; ?></textarea><br>
-    Kategori ID: <input type="text" name="category_id" value="<?php echo $row["category_id"]; ?>"><br>
-    Resim Seçin: <input type="file" name="product_image"><br> <!-- Resim seçimi için dosya yükleme alanı -->
+    Kategori: 
+    <select name="category_id">
+        <?php
+        if ($result_categories->num_rows > 0) {
+            while ($category = $result_categories->fetch_assoc()) {
+                echo "<option value='" . $category["category_id"] . "'";
+                if ($category["category_id"] == $row["category_id"]) {
+                    echo " selected";
+                }
+                echo ">" . $category["category_name"] . "</option>";
+            }
+        }
+        ?>
+    </select><br>
+    Resim Seçin: <input type="file" name="product_image"><br>
     <input type="submit" name="edit_product" value="Ürünü Güncelle">
 </form>
 

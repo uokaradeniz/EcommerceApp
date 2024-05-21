@@ -91,6 +91,12 @@
                         ORDERS
                     </a>
                 </li>
+                <li>
+                    <a href="order_form.php">
+                        <i class="fa fa-angle-double-right"></i>
+                        TEST ORDER
+                    </a>
+                </li>
             </ul>
 
         </nav> <!-- #sidebar -->

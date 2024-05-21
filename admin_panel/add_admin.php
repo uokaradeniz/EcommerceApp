@@ -33,16 +33,6 @@ $conn->close();
     <meta name="description" content="">
     <meta name="author" content="" />
 
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,800italic,400,600,800" type="text/css">
-    <link rel="stylesheet" href="admin_template/Theme/css/font-awesome.min.css" type="text/css" />
-    <link rel="stylesheet" href="admin_template/Theme/css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="admin_template/Theme/js/libs/css/ui-lightness/jquery-ui-1.9.2.custom.css" type="text/css" />
-
-    <link rel="stylesheet" href="admin_template/Theme/css/App.css" type="text/css" />
-    <link rel="stylesheet" href="admin_template/Theme/css/Login.css" type="text/css" />
-
-    <link rel="stylesheet" href="admin_template/Theme/css/custom.css" type="text/css" />
-
 </head>
 <html>
 
