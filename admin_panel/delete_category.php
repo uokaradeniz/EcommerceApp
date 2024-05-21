@@ -20,10 +20,12 @@ $conn->close();
 <html>
 <head>
     <title>Category Deleted</title>
+    <link rel="stylesheet" href="checkout.css">
+
 </head>
 <body>
 
-<a href="category_list.php">Return to Category List</a>
+<a href="category_list.php"class="btn">Return to Category List</a>
 
 </body>
 </html>

@@ -20,13 +20,17 @@ $conn->close();
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Product Deleted</title>
+    <link rel="stylesheet" href="checkout.css">
+
 </head>
+
 <body>
 
-<a href="product_list.php">Return to Product List</a>
+    <a href="product_list.php" class="btn">Return to Product List</a>
 
 </body>
-</html>
 
+</html>

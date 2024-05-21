@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="checkout.css">
     <title>Order Details</title>
     <style>
         table {
@@ -13,7 +14,7 @@
             border: 1px solid black;
         }
         th, td {
-            padding: 15px;
+            padding: 10px;
             text-align: left;
         }
         th {
@@ -22,8 +23,8 @@
     </style>
 </head>
 <body>
-    <h1>Order Details</h1>
-    <a href="dashboard.php">Return to the Dashboard</a>
+    <h1 style="text-align: left;">Order Details</h1>
+    <a href="dashboard.php" class="btn">Return to the Dashboard</a>
 
     <table>
         <thead>
@@ -45,10 +46,11 @@
             include 'db_connect.php';
 
             // Siparişleri veritabanından çek
-            $sql = "SELECT orders.*, products.product_name, products.product_image, order_items.quantity
+            $sql = "SELECT orders.*, GROUP_CONCAT(products.product_name SEPARATOR ', ') AS product_names, GROUP_CONCAT(products.product_image SEPARATOR ', ') AS product_images, SUM(order_items.quantity) AS total_quantity
                         FROM orders
                         INNER JOIN order_items ON orders.order_id = order_items.order_id
-                        INNER JOIN products ON order_items.product_id = products.product_id";
+                        INNER JOIN products ON order_items.product_id = products.product_id
+                        GROUP BY orders.order_id";
             $result = $conn->query($sql);
 
             if ($result->num_rows > 0) {
@@ -59,11 +61,16 @@
                     echo "<td>" . $row["customer_name"] . "</td>";
                     echo "<td>" . $row["customer_email"] . "</td>";
                     echo "<td>" . $row["order_date"] . "</td>";
-                    echo "<td>$" . $row["total_amount"] . "</td>";
+                    echo "<td>TRY " . $row["total_amount"] . "</td>";
                     echo "<td>" . $row["shipping_address"] . "</td>";
-                    echo "<td>" . $row["product_name"] . "</td>";
-                    echo "<td><img src='" . $row["product_image"] . "' alt='Product Image'></td>";
-                    echo "<td>" . $row["quantity"] . "</td>";
+                    echo "<td>" . $row["product_names"] . "</td>";
+                    echo "<td>";
+                    $images = explode(", ", $row["product_images"]);
+                    foreach ($images as $image) {
+                        echo "<img src='" . $image . "' alt='Product Image'>";
+                    }
+                    echo "</td>";
+                    echo "<td>" . $row["total_quantity"] . "</td>";
                     echo "<td><a href='delete_order.php?id=" . $row["order_id"] . "'>Delete</a></td>"; // Siparişi silmek için bağlantı eklendi
                     echo "</tr>";
                 }

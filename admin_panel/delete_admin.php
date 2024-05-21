@@ -25,12 +25,17 @@ $conn->close();
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Admin Deleted</title>
+    <link rel="stylesheet" href="checkout.css">
+
 </head>
+
 <body>
 
-<a href="admin_list.php">Return to Admin List</a>
+    <a href="admin_list.php" class="btn">Return to Admin List</a>
 
 </body>
+
 </html>

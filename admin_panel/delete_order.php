@@ -1,3 +1,11 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="checkout.css">
+
+</head>
+
+</html>
 <?php
 include 'db_connect.php';
 
@@ -19,5 +27,5 @@ if ($conn->query($sql_delete_order) === TRUE) {
 }
 
 $conn->close();
-echo "<a href='order_list.php'>Return to the Orders</a>";
+echo "<a href='order_list.php' class='btn'>Return to the Orders</a>";
 ?>

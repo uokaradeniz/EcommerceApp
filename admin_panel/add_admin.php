@@ -32,14 +32,14 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
     <meta name="author" content="" />
-
+    <link rel="stylesheet" href="checkout.css">
 </head>
 <html>
 
 <body>
 
     <h2>Add Admin</h2>
-    <a href="dashboard.php">Get back to the Dashboard</a>
+    <a href="dashboard.php" class="btn">Return to the Dashboard</a>
 
     <form method="post" action="">
         Name:<br>

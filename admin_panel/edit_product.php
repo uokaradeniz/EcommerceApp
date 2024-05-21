@@ -23,11 +23,13 @@ if(isset($_POST['product_id'])) {
 <html>
 <head>
     <title>Ürün Düzenle</title>
+    <link rel="stylesheet" href="checkout.css">
+
 </head>
 <body>
 
 <h2>Ürün Düzenle</h2>
-<a href="product_list.php">Ürün Listesine Geri Dön</a>
+<a href="product_list.php" class="btn">Ürün Listesine Geri Dön</a>
 
 <form method="post" action="" enctype="multipart/form-data">
     <input type="hidden" name="product_id" value="<?php echo $row["product_id"]; ?>">

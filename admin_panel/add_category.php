@@ -25,10 +25,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html>
 <head>
     <title>Add New Category</title>
+    <link rel="stylesheet" href="checkout.css">
+
 </head>
 <body>
     <h2>Add New Category</h2>
-    <a href="dashboard.php">Get back to the Dashboard</a>
+    <a href="dashboard.php"class="btn">Return to the Dashboard</a>
 
     <form action="" method="POST">
         <label for="category_name">Category Name:</label><br>

@@ -1,61 +1,99 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Place Order</title>
+    <title>Sipariş Ver</title>
+    <link rel="stylesheet" href="checkout.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-    <h1>Place Order</h1>
-    <a href="dashboard.php">Return to the Dashboard</a>
+    <div class="container">
+        <h1>Sipariş Ver</h1>
+        <a href="dashboard.php" class="btn">Dashboard'a Dön</a>
+        <div class="row">
+            <div class="col-75">
+                <div class="order-form">
+                    <form action="place_order.php" method="post">
+                        <div class="row">
+                            <div class="col-50">
+                                <h3>Sipariş Detayları</h3>
+                                <?php
+                                if (isset($_POST['products']) && isset($_POST['quantities'])) {
+                                    $products = $_POST['products'];
+                                    $quantities = $_POST['quantities'];
 
-    <form action="place_order.php" method="post">
-        <label for="product">Select Product:</label>
-        <select name="product" id="product" onchange="showDescription()">
-            <?php
-                include 'db_connect.php';
+                                    include 'db_connect.php';
+                                    $total_price = 0;
 
-                // Ürünleri veritabanından çek
-                $sql = "SELECT * FROM products";
-                $result = $conn->query($sql);
+                                    for ($i = 0; $i < count($products); $i++) {
+                                        $product_id = (int)$products[$i];
+                                        $quantity = (int)$quantities[$i];
 
-                if ($result->num_rows > 0) {
-                    // Veritabanındaki her bir ürünü bir seçenek olarak ekrana yazdır
-                    while($row = $result->fetch_assoc()) {
-                        echo "<option value='" . $row["product_id"] . "' data-description='" . $row["product_description"] . "'>" . $row["product_name"] . "</option>";
-                    }
-                } else {
-                    echo "<option value=''>No products found</option>";
-                }
-                $conn->close();
-            ?>
-        </select>
-        <br><br>
-        <label for="description">Product Description:</label>
-        <textarea id="description" name="description" readonly></textarea>
-        <br><br>
-        <label for="quantity">Quantity:</label>
-        <input type="number" id="quantity" name="quantity" min="1" value="1">
-        <br><br>
-        <label for="name">Your Name:</label>
-        <input type="text" id="name" name="name" required>
-        <br><br>
-        <label for="email">Your Email:</label>
-        <input type="email" id="email" name="email" required>
-        <br><br>
-        <label for="address">Shipping Address:</label>
-        <textarea id="address" name="address" required></textarea>
-        <br><br>
-        <input type="submit" value="Place Order">
-    </form>
+                                        $sql = "SELECT product_name, product_price FROM products WHERE product_id = $product_id";
+                                        $result = $conn->query($sql);
+                                        if ($result->num_rows > 0) {
+                                            $row = $result->fetch_assoc();
+                                            $product_name = $row['product_name'];
+                                            $product_price = $row['product_price'];
+                                            $total_price += $product_price * $quantity;
 
-    <script>
-        function showDescription() {
-            var productSelect = document.getElementById("product");
-            var descriptionTextarea = document.getElementById("description");
-            var selectedOption = productSelect.options[productSelect.selectedIndex];
-            descriptionTextarea.value = selectedOption.getAttribute("data-description");
-        }
-    </script>
+                                            echo '<p>Ürün: ' . $product_name . ' - Adet: ' . $quantity . ' - Fiyat: ' . ($product_price * $quantity) . ' TL</p>';
+                                            echo '<input type="hidden" name="products[]" value="' . $product_id . '">';
+                                            echo '<input type="hidden" name="quantities[]" value="' . $quantity . '">';
+                                        }
+                                    }
+                                    $conn->close();
+
+                                    echo '<p>Toplam Fiyat: ' . $total_price . ' TL</p>';
+                                    echo '<input type="hidden" name="total_price" value="' . $total_price . '">';
+                                } else {
+                                    echo '<p>Sepetinizde ürün bulunmamaktadır.</p>';
+                                }
+                                ?>
+                                <label for="name" class="fa fa-user">Adınız:</label>
+                                <input type="text" id="name" name="name" required>
+                                <label for="email" class="fa fa-envelope">E-mail:</label>
+                                <input type="email" id="email" name="email" required>
+                                <label for="address" class="fa fa-address-card-o">Adres:</label>
+                                <textarea id="address" name="address" required></textarea>
+                            </div>
+                            <div class="col-50">
+                                <h3>Ödeme</h3>
+                                <label for="fname">Kabul Edilen Kartlar</label>
+                                <div class="icon-container">
+                                    <i class="fa fa-cc-visa" style="color:navy;"></i>
+                                    <i class="fa fa-cc-amex" style="color:blue;"></i>
+                                    <i class="fa fa-cc-mastercard" style="color:red;"></i>
+                                    <i class="fa fa-cc-discover" style="color:orange;"></i>
+                                </div>
+                                <label for="cname">Kart Üzerindeki İsim</label>
+                                <input type="text" id="cname" name="cardname" placeholder="John More Doe" required>
+                                <label for="ccnum">Kredi Kartı Numarası</label>
+                                <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444" required>
+                                <label for="expmonth">Son Kullanma Tarihi (Ay)</label>
+                                <input type="text" id="expmonth" name="expmonth" placeholder="Eylül" required>
+                                <div class="row">
+                                    <div class="col-50">
+                                        <label for="expyear">Son Kullanma Tarihi (Yıl)</label>
+                                        <input type="text" id="expyear" name="expyear" placeholder="2024" required>
+                                    </div>
+                                    <div class="col-50">
+                                        <label for="cvv">CVV</label>
+                                        <input type="text" id="cvv" name="cvv" placeholder="352" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="submit" class="btn" value="Sipariş Ver">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

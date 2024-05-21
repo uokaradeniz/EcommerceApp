@@ -47,10 +47,12 @@ $conn->close();
 <html>
 <head>
     <title>Edit Category</title>
+    <link rel="stylesheet" href="checkout.css">
+
 </head>
 <body>
     <h2>Edit Category</h2>
-    <a href="category_list.php">Return to Category List</a>
+    <a href="category_list.php" class="btn">Return to the Category List</a>
     <form action="" method="POST">
         <input type="hidden" name="category_id" value="<?php echo $category_id; ?>">
         <label for="category_name">Category Name:</label><br>

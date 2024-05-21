@@ -40,11 +40,13 @@ if(isset($_POST['add_product'])) {
 <html>
 <head>
     <title>Add Product</title>
+    <link rel="stylesheet" href="checkout.css">
+
 </head>
 <body>
 
 <h2>Add Product</h2>
-<a href="dashboard.php">Return to the Dashboard</a>
+<a href="dashboard.php"class="btn">Return to the Dashboard</a>
 
 <form method="post" action="" enctype="multipart/form-data">
     Product Name: <input type="text" name="product_name"><br>

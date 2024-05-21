@@ -1,62 +1,60 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="checkout.css">
+</head>
+
+</html>
+
 <?php
+session_start();
 include 'db_connect.php';
 
-// Form verilerini al
-$product_id = $_POST['product'];
-$quantity = $_POST['quantity'];
-$customer_name = $_POST['name'];
-$customer_email = $_POST['email'];
-$shipping_address = $_POST['address'];
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $address = $_POST['address'];
+    $total_price = $_POST['total_price'];
+    $products = $_POST['products'];
+    $quantities = $_POST['quantities'];
+    $cardname = $_POST['cardname'];
+    $cardnumber = $_POST['cardnumber'];
+    $expmonth = $_POST['expmonth'];
+    $expyear = $_POST['expyear'];
+    $cvv = $_POST['cvv'];
 
-// Ürün bilgilerini al
-$sql_product = "SELECT * FROM products WHERE product_id = $product_id";
-$result_product = $conn->query($sql_product);
+    // Sipariş bilgilerini veritabanına kaydet
+    $sql_order = "INSERT INTO orders (customer_name, customer_email, shipping_address, total_amount) 
+                  VALUES ('$name', '$email', '$address', $total_price)";
 
-if ($result_product->num_rows > 0) {
-    $row_product = $result_product->fetch_assoc();
-    $product_name = $row_product['product_name'];
-    $product_price = $row_product['product_price'];
-    $stock_quantity = $row_product['stock_quantity'];
+    if ($conn->query($sql_order) === TRUE) {
+        $order_id = $conn->insert_id;
 
-    if ($stock_quantity >= $quantity) {
-        // Toplam miktarı hesapla
-        $total_amount = $quantity * $product_price;
+        // Sipariş detaylarını veritabanına kaydet
+        for ($i = 0; $i < count($products); $i++) {
+            $product_id = (int)$products[$i];
+            $quantity = (int)$quantities[$i];
 
-        // Sipariş bilgilerini orders tablosuna ekle
-        $sql_order = "INSERT INTO orders (customer_name, customer_email, order_date, total_amount, shipping_address) 
-                    VALUES ('$customer_name', '$customer_email', NOW(), $total_amount, '$shipping_address')";
-        
-        if ($conn->query($sql_order) === TRUE) {
-            $order_id = $conn->insert_id;
-
-            // Sipariş kalemlerini order_items tablosuna ekle
             $sql_order_item = "INSERT INTO order_items (order_id, product_id, quantity) 
-                            VALUES ($order_id, $product_id, $quantity)";
+                               VALUES ($order_id, $product_id, $quantity)";
 
-            if ($conn->query($sql_order_item) === TRUE) {
-                // Ürün miktarını azalt
-                $new_stock_quantity = $stock_quantity - $quantity;
-                $sql_update_stock = "UPDATE products SET stock_quantity = $new_stock_quantity WHERE product_id = $product_id";
-
-                if ($conn->query($sql_update_stock) === TRUE) {
-                    echo "Order placed successfully. Your order ID is: " . $order_id;
-                } else {
-                    echo "Error updating stock: " . $conn->error;
-                }
-            } else {
+            if ($conn->query($sql_order_item) !== TRUE) {
                 echo "Error adding order item: " . $conn->error;
+                exit;
             }
-        } else {
-            echo "Error adding order: " . $conn->error;
         }
+
+        // Sipariş tamamlandıktan sonra sepeti temizle
+        unset($_SESSION['cart']);
+
+        echo "Siparişiniz başarıyla alındı. Sipariş numaranız: " . $order_id;
+        echo "<a href='dashboard.php' class='btn'>Dashboard'a Geri Dön</a>";
     } else {
-        echo "Insufficient stock quantity available for this product.";
+        echo "Sipariş eklenirken bir hata oluştu: " . $conn->error;
     }
 } else {
-    echo "Product not found.";
+    echo "Geçersiz istek.";
 }
 
 $conn->close();
-echo "<a href='dashboard.php'>Return to the Dashboard</a>";
-
 ?>

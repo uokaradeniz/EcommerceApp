@@ -92,9 +92,9 @@
                     </a>
                 </li>
                 <li>
-                    <a href="order_form.php">
+                    <a href="homepage.php">
                         <i class="fa fa-angle-double-right"></i>
-                        TEST ORDER
+                        HOMEPAGE
                     </a>
                 </li>
             </ul>
