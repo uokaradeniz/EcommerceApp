@@ -1,11 +1,3 @@
-<html>
-
-<head>
-    <link rel="stylesheet" href="checkout.css">
-</head>
-
-</html>
-
 <?php
 session_start();
 include 'db_connect.php';
@@ -30,16 +22,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($conn->query($sql_order) === TRUE) {
         $order_id = $conn->insert_id;
 
-        // Sipariş detaylarını veritabanına kaydet
+        // Sipariş detaylarını ve stok güncellemelerini veritabanına kaydet
         for ($i = 0; $i < count($products); $i++) {
             $product_id = (int)$products[$i];
             $quantity = (int)$quantities[$i];
 
+            // Sipariş detaylarını ekle
             $sql_order_item = "INSERT INTO order_items (order_id, product_id, quantity) 
                                VALUES ($order_id, $product_id, $quantity)";
-
             if ($conn->query($sql_order_item) !== TRUE) {
                 echo "Error adding order item: " . $conn->error;
+                exit;
+            }
+
+            // Stok miktarını güncelle
+            $sql_update_stock = "UPDATE products SET stock_quantity = stock_quantity - $quantity 
+                                 WHERE product_id = $product_id";
+            if ($conn->query($sql_update_stock) !== TRUE) {
+                echo "Error updating stock: " . $conn->error;
                 exit;
             }
         }

@@ -1,7 +1,7 @@
 <footer id="footer">
     <ul class="nav pull-right">
         <li>
-            Copyright &copy; 2013, Jumpstart Themes.
+            Copyright 2024, UOKARADENİZ.
         </li>
     </ul>
 </footer>

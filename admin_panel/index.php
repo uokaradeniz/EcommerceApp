@@ -10,7 +10,7 @@ include("config.php");
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
     <head>
 
-    <title>Berk Hoca Default Admin Login</title>
+    <title>UOKBurada E-Commerce Admin Login</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="">
@@ -33,14 +33,15 @@ include("config.php");
 <div id="login-container">
 
     <div id="logo">
-        <a href="admin_template/Theme/login.html">
+        <a href="">
             <img src="admin_template/Theme/img/logos/logo-login.png" alt="Logo" />
         </a>
     </div>
 
     <div id="login">
 
-        <h3>Berk Hoca Default Admin</h3>
+        <h3>Admin Login</h3>
+        <h4>UOKBurada E-Commerce</h4>
 
         <h5>Please log in to get access</h5>
 
@@ -73,7 +74,7 @@ include("config.php");
 
             <div class="form-group">
 
-                <button type="submit" id="login-btn" class="btn btn-primary btn-block">Signin &nbsp; <i class="fa fa-play-circle"></i></button>
+                <button type="submit" id="login-btn" class="btn btn-primary btn-block">Sign In &nbsp; <i class="fa fa-play-circle"></i></button>
 
             </div>
         </form>

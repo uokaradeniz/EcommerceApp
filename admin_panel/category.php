@@ -22,6 +22,7 @@ $result_products = $conn->query($sql_products);
 
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,7 +43,7 @@ $result_products = $conn->query($sql_products);
             margin: 0 10px;
         }
 
-        nav select {
+        select {
             padding: 8px;
             font-size: 16px;
             border: 1px solid #ccc;
@@ -50,58 +51,91 @@ $result_products = $conn->query($sql_products);
             background-color: #f8f8f8;
         }
 
-        nav select option {
+        select option {
+            font-size: 16px;
+        }
+
+        /* Güncellenmiş ürün kartı stili */
+        .product {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 10px;
+            width: 200px;
+            float: left;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            cursor: pointer;
+            /* Hover efekti için */
+        }
+
+        .product:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .product img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .product h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .product p {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .product .price {
+            font-weight: bold;
+            color: #007bff;
             font-size: 16px;
         }
     </style>
 </head>
+
 <body>
     <header>
-        <h1><?php echo $category_name; ?></h1>
         <nav>
+            <h1>UOKBurada E-Commerce</h1><br>
             <ul>
                 <li><a href="homepage.php">Ana Sayfa</a></li>
-                <!-- Dropdown menü -->
-                <li>
-                    <select onchange="location = this.value;">
-                        <option value="">Kategori Seç</option>
-                        <?php
-                        $sql = "SELECT category_id, category_name FROM category_table";
-                        $result_categories = $conn->query($sql);
-
-                        if ($result_categories->num_rows > 0) {
-                            while($row = $result_categories->fetch_assoc()) {
-                                echo '<option value="category.php?category_id=' . $row["category_id"] . '">' . $row["category_name"] . '</option>';
-                            }
-                        } else {
-                            echo '<option value="">Kategori bulunamadı</option>';
-                        }
-                        ?>
-                    </select>
-                </li>
                 <li><a href="cart.php">Sepetim</a></li>
+                <li><a href="contact.php">İletişim</a></li>
+                <li><a href="index.php" style="color: red;">Admin Panel(Debugging için)</a></li>
             </ul>
         </nav>
     </header>
     <main>
+        <select onchange="location = this.value;">
+            <option value="">Kategori Seç</option>
+            <?php
+            $sql = "SELECT category_id, category_name FROM category_table";
+            $result_categories = $conn->query($sql);
+
+            if ($result_categories->num_rows > 0) {
+                while ($row = $result_categories->fetch_assoc()) {
+                    echo '<option value="category.php?category_id=' . $row["category_id"] . '">' . $row["category_name"] . '</option>';
+                }
+            } else {
+                echo '<option value="">Kategori bulunamadı</option>';
+            }
+            ?>
+        </select>
         <h2><?php echo $category_name; ?> Kategorisi</h2>
         <div class="products">
             <?php
             if ($result_products->num_rows > 0) {
-                while($product = $result_products->fetch_assoc()) {
+                while ($product = $result_products->fetch_assoc()) {
                     echo '<div class="product">';
                     echo '<h3>' . $product["product_name"] . '</h3>';
-                    echo '<img src="' . $product["product_image"] . '" alt="' . $product["product_name"] . '" class="product-image">';
-                    echo '<p>' . $product["product_description"] . '</p>';
+                    echo '<a href="product_detail.php?product_id=' . $product["product_id"] . '"><img src="' . $product["product_image"] . '" alt="' . $product["product_name"] . '" class="product-image"></a>';
                     echo '<p>Fiyat: ' . $product["product_price"] . ' TL</p>';
-                    echo '<p>Stok Miktarı: ' . $product["stock_quantity"] . '</p>';
-                    echo '<form action="add_to_cart.php" method="post">';
-                    echo '<input type="hidden" name="product_id" value="' . $product["product_id"] . '">';
-                    echo '<input type="hidden" name="product_name" value="' . $product["product_name"] . '">';
-                    echo '<input type="hidden" name="product_price" value="' . $product["product_price"] . '">';
-                    echo '<input type="hidden" name="product_quantity" value="1">';
-                    echo '<button type="submit">Sepete Ekle</button>';
-                    echo '</form>';
                     echo '</div>';
                 }
             } else {
@@ -110,10 +144,11 @@ $result_products = $conn->query($sql_products);
             ?>
         </div>
     </main>
-    <footer>
+    <footer style="display: flex; justify-content:center;">
         <p>UOKBurada.com E-Commerce</p>
     </footer>
 </body>
+
 </html>
 
 <?php
