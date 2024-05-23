@@ -32,7 +32,6 @@ session_start();
                                         $product_id = (int)$products[$i];
                                         $quantity = (int)$quantities[$i];
 
-                                        // Ürün bilgilerini veritabanından al
                                         include 'db_connect.php';
                                         $sql = "SELECT product_name FROM products WHERE product_id = $product_id";
                                         $result = $conn->query($sql);

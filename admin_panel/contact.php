@@ -7,7 +7,6 @@
     <title>İletişim Bilgileri - UOKBurada</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Ekstra stiller */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -43,11 +42,13 @@
 
 <body>
 <header>
-        <nav>
+<nav>
             <h1>UOKBurada E-Commerce</h1><br>
             <ul>
                 <li><a href="homepage.php">Ana Sayfa</a></li>
-                <li><a href="cart.php">Sepetim</a></li>
+                <li> <img src="uploads/carts.png" style="max-width: 30px; height: auto;" alt="Sepet">
+                    <a href="cart.php"> Sepet</a>
+                </li>
                 <li><a href="contact.php">İletişim</a></li>
                 <li><a href="index.php" style="color: red;">Admin Panel(Debugging için)</a></li>
             </ul>
@@ -56,7 +57,7 @@
     <div class="container">
         <h1>İletişim Bilgileri</h1>
         <div class="contact-info">
-            <p><strong>Adres:</strong> UOKBurada Plaza, No: 123, İstanbul, Türkiye</p>
+            <p><strong>Adres:</strong> UOKBurada Plaza, No: 123, İstanbul, Türkiye, Ataaşehir</p>
             <p><strong>Telefon:</strong> +90 123 456 7890</p>
             <p><strong>E-posta:</strong> info@uokburada.com</p>
         </div>

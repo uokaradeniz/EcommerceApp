@@ -2,10 +2,8 @@
 session_start();
 include 'db_connect.php';
 
-// Kategorinin ID'sini URL parametresinden al
 $category_id = isset($_GET['category_id']) ? (int)$_GET['category_id'] : 0;
 
-// Kategorinin bilgilerini veritabanından çek
 $sql = "SELECT category_name FROM category_table WHERE category_id = $category_id";
 $result = $conn->query($sql);
 $category_name = "Kategori bulunamadı";
@@ -15,7 +13,6 @@ if ($result->num_rows > 0) {
     $category_name = $row['category_name'];
 }
 
-// Kategoriye ait ürünleri veritabanından çek
 $sql_products = "SELECT product_id, product_name, product_image, product_price, product_description, stock_quantity FROM products WHERE category_id = $category_id";
 $result_products = $conn->query($sql_products);
 ?>
@@ -29,14 +26,12 @@ $result_products = $conn->query($sql_products);
     <title><?php echo $category_name; ?> - E-Ticaret Sitesi</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Ekstra stiller */
         nav ul {
             list-style-type: none;
             padding: 0;
             margin: 0;
             display: flex;
             justify-content: center;
-            /* Kategorileri ortala */
         }
 
         nav li {
@@ -55,7 +50,6 @@ $result_products = $conn->query($sql_products);
             font-size: 16px;
         }
 
-        /* Güncellenmiş ürün kartı stili */
         .product {
             border: 1px solid #ccc;
             border-radius: 8px;
@@ -66,7 +60,6 @@ $result_products = $conn->query($sql_products);
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
             transition: transform 0.3s;
             cursor: pointer;
-            /* Hover efekti için */
         }
 
         .product:hover {
@@ -101,11 +94,13 @@ $result_products = $conn->query($sql_products);
 
 <body>
     <header>
-        <nav>
+    <nav>
             <h1>UOKBurada E-Commerce</h1><br>
             <ul>
                 <li><a href="homepage.php">Ana Sayfa</a></li>
-                <li><a href="cart.php">Sepetim</a></li>
+                <li> <img src="uploads/carts.png" style="max-width: 30px; height: auto;" alt="Sepet">
+                    <a href="cart.php"> Sepet</a>
+                </li>
                 <li><a href="contact.php">İletişim</a></li>
                 <li><a href="index.php" style="color: red;">Admin Panel(Debugging için)</a></li>
             </ul>

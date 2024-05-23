@@ -53,16 +53,16 @@ $conn->close();
 
     <form method="post" action="">
         <input type="hidden" name="admin_id" value="<?php echo $admin_id; ?>">
-        Ad:<br>
+        Name:<br>
         <input type="text" name="admin_name" value="<?php echo $admin_name; ?>" required>
         <br>
-        Soyad:<br>
+        Surname:<br>
         <input type="text" name="admin_surname" value="<?php echo $admin_surname; ?>" required>
         <br>
-        Kullanıcı Adı:<br>
+        Username:<br>
         <input type="text" name="admin_username" value="<?php echo $admin_username; ?>" required>
         <br>
-        Admin Durumu:<br>
+        Admin Status:<br>
         <input type="checkbox" name="admin_status" <?php echo $admin_status ? 'checked' : ''; ?>>
         <br><br>
         <input type="submit" value="Edit">

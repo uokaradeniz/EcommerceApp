@@ -1,17 +1,14 @@
 <?php
 include 'db_connect.php';
 
-// Ürünün ID'sini URL parametresinden al
 $product_id = isset($_GET['product_id']) ? (int)$_GET['product_id'] : 0;
 
-// Ürün bilgilerini veritabanından çek
 $sql = "SELECT * FROM products WHERE product_id = $product_id";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     $product = $result->fetch_assoc();
 } else {
-    // Ürün bulunamadıysa, hata mesajı göster ve işlemi sonlandır
     die('Ürün bulunamadı.');
 }
 ?>
@@ -25,7 +22,6 @@ if ($result->num_rows > 0) {
     <title><?php echo $product['product_name']; ?> - Ürün Detayı</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Ekstra stiller */
         .product-detail {
             max-width: 600px;
             margin: 0 auto;

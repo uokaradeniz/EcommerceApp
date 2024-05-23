@@ -23,22 +23,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Add New Category</title>
     <link rel="stylesheet" href="checkout.css">
 
 </head>
+
 <body>
     <h2>Add New Category</h2>
-    <a href="dashboard.php"class="btn">Return to the Dashboard</a>
 
     <form action="" method="POST">
         <label for="category_name">Category Name:</label><br>
         <input type="text" id="category_name" name="category_name" required><br><br>
         <label for="category_order">Category Order:</label><br>
         <input type="number" id="category_order" name="category_order" required><br><br>
-        <input type="submit" value="Submit">
+        <input type="submit" class="btn" value="Submit">
     </form>
+    <br><br>
+    <a href="dashboard.php" class="btn">Return to the Dashboard</a>
 </body>
-</html>
 
+</html>

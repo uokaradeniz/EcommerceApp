@@ -1,6 +1,7 @@
 <?php
 include 'db_connect.php';
 
+$category_id = $_POST['category_id'];
 $sql = "DELETE FROM category_table WHERE category_id = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $category_id);

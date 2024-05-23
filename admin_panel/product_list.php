@@ -11,30 +11,57 @@ $result_products = $conn->query($sql_products);
 <head>
     <title>Product List</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+
+        h1 {
+            color: #333;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
-        }
-
-        table,
-        th,
-        td {
-            border: 1px solid black;
+            margin-top: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
         }
 
         th,
         td {
-            padding: 10px;
+            padding: 15px;
             text-align: left;
         }
 
         th {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
             background-color: #f2f2f2;
         }
 
-        .product-image {
-            width: 100px;
+        tr:hover {
+            background-color: #ddd;
+        }
+
+        td img {
+            max-width: 50px;
             height: auto;
+            margin-right: 5px;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
         }
     </style>
     <link rel="stylesheet" href="checkout.css">
@@ -44,7 +71,6 @@ $result_products = $conn->query($sql_products);
 <body>
 
     <h2>Product List</h2>
-    <a href="dashboard.php" class="btn">Return to the Dashboard</a>
 
     <table>
         <tr>
@@ -79,6 +105,8 @@ $result_products = $conn->query($sql_products);
         }
         ?>
     </table>
+    <br><br>
+    <a href="dashboard.php" class="btn">Return to the Dashboard</a>
 
 </body>
 

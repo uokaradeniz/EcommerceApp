@@ -39,7 +39,7 @@ $conn->close();
 <body>
 
     <h2>Add Admin</h2>
-    <a href="dashboard.php" class="btn">Return to the Dashboard</a>
+
 
     <form method="post" action="">
         Name:<br>
@@ -57,9 +57,10 @@ $conn->close();
         Admin Status:<br>
         <input type="checkbox" name="admin_status">
         <br><br>
-        <input type="submit" value="Submit">
+        <input type="submit" class="btn" value="Submit">
     </form>
-
+    <br><br>
+    <a href="dashboard.php" class="btn">Return to the Dashboard</a>
 </body>
 
 </html>

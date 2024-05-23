@@ -12,15 +12,23 @@ $result = $conn->query($sql);
 <head>
     <title>Category List</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+
+        h1 {
+            color: #333;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
-        }
-
-        table,
-        th,
-        td {
-            border: 1px solid black;
+            margin-top: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
         }
 
         th,
@@ -30,7 +38,31 @@ $result = $conn->query($sql);
         }
 
         th {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
             background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+
+        td img {
+            max-width: 50px;
+            height: auto;
+            margin-right: 5px;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
         }
     </style>
     <link rel="stylesheet" href="checkout.css">
@@ -40,7 +72,6 @@ $result = $conn->query($sql);
 <body>
 
     <h2>Category List</h2>
-    <a href="dashboard.php" class="btn">Return to Dashboard</a>
     <table>
         <tr>
             <th>ID</th>
@@ -66,6 +97,8 @@ $result = $conn->query($sql);
         }
         ?>
     </table>
+    <br><br>
+    <a href="dashboard.php" class="btn">Return to Dashboard</a>
 
     <?php
     $conn->close();

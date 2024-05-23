@@ -52,14 +52,15 @@ $conn->close();
 </head>
 <body>
     <h2>Edit Category</h2>
-    <a href="category_list.php" class="btn">Return to the Category List</a>
     <form action="" method="POST">
         <input type="hidden" name="category_id" value="<?php echo $category_id; ?>">
         <label for="category_name">Category Name:</label><br>
         <input type="text" id="category_name" name="category_name" value="<?php echo $category_name; ?>" required><br><br>
         <label for="category_order">Category Order:</label><br>
         <input type="number" id="category_order" name="category_order" value="<?php echo $category_order; ?>" required><br><br>
-        <input type="submit" name="update_category" value="Update">
+        <input type="submit" clas="btn" name="update_category" value="Update">
     </form>
+    <br><br>
+    <a href="category_list.php" class="btn">Return to the Category List</a>
 </body>
 </html>

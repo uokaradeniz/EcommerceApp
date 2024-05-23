@@ -1,7 +1,6 @@
 <?php
 include 'db_connect.php';
 
-// Ürünleri veritabanından çek
 $sql = "SELECT * FROM products";
 $result_products = $conn->query($sql);
 ?>
@@ -25,7 +24,6 @@ $result_products = $conn->query($sql);
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
             transition: transform 0.3s;
             cursor: pointer;
-            /* Hover efekti için */
         }
 
         .product:hover {
@@ -56,14 +54,12 @@ $result_products = $conn->query($sql);
             font-size: 16px;
         }
 
-        /* Ekstra stiller */
         nav ul {
             list-style-type: none;
             padding: 0;
             margin: 0;
             display: flex;
             justify-content: center;
-            /* Kategorileri ortala */
         }
 
         nav li {
@@ -85,7 +81,6 @@ $result_products = $conn->query($sql);
         nav a {
             text-decoration: none;
             color: #000;
-            /* Hyperlink rengi */
         }
 
         h1#firsat-urunleri {
@@ -101,11 +96,13 @@ $result_products = $conn->query($sql);
 
 <body>
 <header>
-        <nav>
+<nav>
             <h1>UOKBurada E-Commerce</h1><br>
             <ul>
                 <li><a href="homepage.php">Ana Sayfa</a></li>
-                <li><a href="cart.php">Sepetim</a></li>
+                <li> <img src="uploads/carts.png" style="max-width: 30px; height: auto;" alt="Sepet">
+                    <a href="cart.php"> Sepet</a>
+                </li>
                 <li><a href="contact.php">İletişim</a></li>
                 <li><a href="index.php" style="color: red;">Admin Panel(Debugging için)</a></li>
             </ul>
@@ -132,7 +129,7 @@ $result_products = $conn->query($sql);
             ?>
         </select>
         <h1 id="firsat-urunleri">Fırsat Ürünleri!</h1>
-        <!-- Ürün kartları -->
+
         <div class="products">
             <?php
             if ($result_products->num_rows > 0) {
