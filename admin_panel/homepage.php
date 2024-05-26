@@ -116,7 +116,7 @@ $result_products = $conn->query($sql);
         <select onchange="location = this.value;">
             <option value="">Kategori Seç</option>
             <?php
-            $sql = "SELECT category_id, category_name FROM category_table";
+            $sql = "SELECT category_id, category_name FROM category_table ORDER BY category_order";
             $result_categories = $conn->query($sql);
 
             if ($result_categories->num_rows > 0) {
