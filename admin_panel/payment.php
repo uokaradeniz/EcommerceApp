@@ -53,14 +53,16 @@ session_start();
                                     exit;
                                 }
 
-                                if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['address'])) {
+                                if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['address']) && isset($_POST['telephone_num'])) {
                                     $name = $_POST['name'];
                                     $email = $_POST['email'];
                                     $address = $_POST['address'];
+                                    $telephone_num = $_POST['telephone_num'];
 
                                     echo '<input type="hidden" name="name" value="' . $name . '">';
                                     echo '<input type="hidden" name="email" value="' . $email . '">';
                                     echo '<input type="hidden" name="address" value="' . $address . '">';
+                                    echo '<input type="hidden" name="telephone_num" value="' . $telephone_num . '">';
                                 } else {
                                     echo '<p>Geçersiz kargo bilgisi.</p>';
                                     exit;

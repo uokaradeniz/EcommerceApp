@@ -1,5 +1,62 @@
 <?php
 session_start();
+
+// Sepetten ürün silme işlemi
+if (isset($_GET['remove']) && isset($_SESSION['cart'])) {
+    $remove_id = $_GET['remove'];
+
+    // Sepetten kaldırılacak ürünün indisini bul
+    foreach ($_SESSION['cart'] as $key => $item) {
+        if ($item['product_id'] == $remove_id) {
+            // İlgili ürünü sepetten kaldır
+            unset($_SESSION['cart'][$key]);
+            break;
+        }
+    }
+
+    // Yeniden sırala
+    $_SESSION['cart'] = array_values($_SESSION['cart']);
+
+    // Yönlendir
+    header('Location: cart.php');
+    exit();
+}
+
+// Sepetteki ürün miktarını arttırma işlemi
+if (isset($_GET['increase']) && isset($_SESSION['cart'])) {
+    $increase_id = $_GET['increase'];
+
+    // İlgili ürünün miktarını arttır
+    foreach ($_SESSION['cart'] as &$item) {
+        if ($item['product_id'] == $increase_id) {
+            $item['product_quantity']++;
+            break;
+        }
+    }
+
+    // Yönlendir
+    header('Location: cart.php');
+    exit();
+}
+
+// Sepetteki ürün miktarını azaltma işlemi
+if (isset($_GET['decrease']) && isset($_SESSION['cart'])) {
+    $decrease_id = $_GET['decrease'];
+
+    // İlgili ürünün miktarını azalt
+    foreach ($_SESSION['cart'] as &$item) {
+        if ($item['product_id'] == $decrease_id) {
+            if ($item['product_quantity'] > 1) {
+                $item['product_quantity']--;
+            }
+            break;
+        }
+    }
+
+    // Yönlendir
+    header('Location: cart.php');
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -45,15 +102,22 @@ session_start();
             margin-top: 10px;
             padding: 10px 20px;
             font-size: 16px;
-            background-color: #007bff;
+            background-color: #4CAF50;
             color: #fff;
             border: none;
             border-radius: 4px;
             cursor: pointer;
             transition: background-color 0.3s;
         }
+
         .buttons button:hover {
-            background-color: #0056b3;
+            background-color: #45a049;
+        }
+
+        a {
+            color: #4CAF50
+;
+            text-decoration: none;
         }
     </style>
 </head>
@@ -86,6 +150,7 @@ session_start();
                 echo '<th>Fiyat (TL)</th>';
                 echo '<th>Adet</th>';
                 echo '<th>Toplam (TL)</th>';
+                echo '<th>İşlem</th>'; // Yeni kolon: İşlem
                 echo '</tr>';
                 echo '</thead>';
                 echo '<tbody>';
@@ -95,8 +160,13 @@ session_start();
                     echo '<tr>';
                     echo '<td>' . $item['product_name'] . '</td>';
                     echo '<td>' . $item['product_price'] . '</td>';
-                    echo '<td>' . $item['product_quantity'] . '</td>';
+                    echo '<td>';
+                    echo '<a href="cart.php?decrease=' . $item['product_id'] . '">- </a>';
+                    echo $item['product_quantity'];
+                    echo '<a href="cart.php?increase=' . $item['product_id'] . '"> +</a>';
+                    echo '</td>';
                     echo '<td>' . $item_total . '</td>';
+                    echo '<td><a href="cart.php?remove=' . $item['product_id'] . '">Sil</a></td>'; // Silme bağlantısı ekle
                     echo '<input type="hidden" name="products[]" value="' . $item['product_id'] . '">';
                     echo '<input type="hidden" name="quantities[]" value="' . $item['product_quantity'] . '">';
                     echo '</tr>';

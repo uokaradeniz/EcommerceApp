@@ -92,9 +92,9 @@
                     </a>
                 </li>
                 <li>
-                    <a href="homepage.php">
+                    <a href="user_login.php">
                         <i class="fa fa-angle-double-right"></i>
-                        HOMEPAGE
+                        UOKBURADA
                     </a>
                 </li>
             </ul>

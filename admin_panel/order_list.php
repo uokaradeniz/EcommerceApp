@@ -33,7 +33,7 @@
         }
 
         th {
-            background-color: #007bff;
+            background-color: #4CAF50;
             color: #fff;
         }
 
@@ -52,7 +52,8 @@
         }
 
         a {
-            color: #007bff;
+            color: #4CAF50
+;
             text-decoration: none;
         }
 
@@ -74,6 +75,7 @@
                 <th>Order Date</th>
                 <th>Total Amount</th>
                 <th>Shipping Address</th>
+                <th>Telephone Number</th>
                 <th>Product Name</th>
                 <th>Product Image</th>
                 <th>Quantity</th>
@@ -100,6 +102,7 @@
                     echo "<td>" . $row["order_date"] . "</td>";
                     echo "<td>TRY " . $row["total_amount"] . "</td>";
                     echo "<td>" . $row["shipping_address"] . "</td>";
+                    echo "<td>" . $row["telephone_number"] . "</td>";
                     echo "<td>" . $row["product_names"] . "</td>";
                     echo "<td>";
                     $images = explode(", ", $row["product_images"]);
@@ -108,11 +111,12 @@
                     }
                     echo "</td>";
                     echo "<td>" . $row["total_quantity"] . "</td>";
-                    echo "<td><a href='delete_order.php?id=" . $row["order_id"] . "'>Delete</a></td>";
+                    echo "<td><a href='edit_order.php?id=" . $row["order_id"] . "'>Edit</a> | <a href='delete_order.php?id=" . $row["order_id"] . "'>Delete</a></td>";
+                    
                     echo "</tr>";
                 }
             } else {
-                echo "<tr><td colspan='10'>No orders found</td></tr>";
+                echo "<tr><td colspan='11'>No orders found</td></tr>";
             }
             $conn->close();
             ?>

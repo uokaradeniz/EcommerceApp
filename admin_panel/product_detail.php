@@ -50,7 +50,8 @@ if ($result->num_rows > 0) {
 
         .product-detail .price {
             font-weight: bold;
-            color: #007bff;
+            color: #4CAF50
+;
             font-size: 18px;
         }
 
@@ -75,7 +76,7 @@ if ($result->num_rows > 0) {
             margin-top: 10px;
             padding: 10px 20px;
             font-size: 16px;
-            background-color: #007bff;
+            background-color: #4CAF50;
             color: #fff;
             border: none;
             border-radius: 4px;
@@ -84,7 +85,7 @@ if ($result->num_rows > 0) {
         }
 
         .product-detail button:hover {
-            background-color: #0056b3;
+            background-color: #45a049;
         }
     </style>
 </head>

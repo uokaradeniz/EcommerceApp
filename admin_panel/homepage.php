@@ -1,7 +1,7 @@
 <?php
 include 'db_connect.php';
 
-$sql = "SELECT * FROM products";
+$sql = "SELECT * FROM products WHERE stock_quantity > 0";
 $result_products = $conn->query($sql);
 ?>
 
@@ -14,6 +14,38 @@ $result_products = $conn->query($sql);
     <title>Ana Sayfa - UOKBurada</title>
     <link rel="stylesheet" href="styles.css">
     <style>
+        form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        button[type="submit"] {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        button[type="submit"]:focus {
+            outline: none;
+        }
+
         .product {
             border: 1px solid #ccc;
             border-radius: 8px;
@@ -50,7 +82,8 @@ $result_products = $conn->query($sql);
 
         .product .price {
             font-weight: bold;
-            color: #007bff;
+            color: #4CAF50
+;
             font-size: 16px;
         }
 
@@ -95,8 +128,8 @@ $result_products = $conn->query($sql);
 </head>
 
 <body>
-<header>
-<nav>
+    <header>
+        <nav>
             <h1>UOKBurada E-Commerce</h1><br>
             <ul>
                 <li><a href="homepage.php">Ana Sayfa</a></li>
@@ -110,6 +143,10 @@ $result_products = $conn->query($sql);
     </header>
     <main>
         <img src="uploads/homepage.jpeg">
+        <form action="search_product.php" method="GET">
+            <input type="text" name="query" placeholder="Ürün Ara...">
+            <button type="submit">Ara</button>
+        </form>
 
         <h2>Hoş Geldiniz!</h2>
         <p>En iyi ürünleri en uygun fiyatlarla satın alın.</p>

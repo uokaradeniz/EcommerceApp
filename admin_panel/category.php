@@ -13,7 +13,7 @@ if ($result->num_rows > 0) {
     $category_name = $row['category_name'];
 }
 
-$sql_products = "SELECT product_id, product_name, product_image, product_price, product_description, stock_quantity FROM products WHERE category_id = $category_id";
+$sql_products = "SELECT product_id, product_name, product_image, product_price, product_description, stock_quantity FROM products WHERE category_id = $category_id AND stock_quantity > 0";
 $result_products = $conn->query($sql_products);
 ?>
 
@@ -26,6 +26,38 @@ $result_products = $conn->query($sql_products);
     <title><?php echo $category_name; ?> - E-Ticaret Sitesi</title>
     <link rel="stylesheet" href="styles.css">
     <style>
+        form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        button[type="submit"] {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        button[type="submit"]:focus {
+            outline: none;
+        }
+
         nav ul {
             list-style-type: none;
             padding: 0;
@@ -86,7 +118,8 @@ $result_products = $conn->query($sql_products);
 
         .product .price {
             font-weight: bold;
-            color: #007bff;
+            color: #4CAF50
+;
             font-size: 16px;
         }
     </style>
@@ -94,7 +127,7 @@ $result_products = $conn->query($sql_products);
 
 <body>
     <header>
-    <nav>
+        <nav>
             <h1>UOKBurada E-Commerce</h1><br>
             <ul>
                 <li><a href="homepage.php">Ana Sayfa</a></li>
@@ -107,6 +140,10 @@ $result_products = $conn->query($sql_products);
         </nav>
     </header>
     <main>
+        <form action="search_product.php" method="GET">
+            <input type="text" name="query" placeholder="Ürün Ara...">
+            <button type="submit">Ara</button>
+        </form><br>
         <select onchange="location = this.value;">
             <option value="">Kategori Seç</option>
             <?php

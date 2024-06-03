@@ -37,7 +37,7 @@ $result_products = $conn->query($sql_products);
         }
 
         th {
-            background-color: #007bff;
+            background-color: #4CAF50;
             color: #fff;
         }
 
@@ -56,7 +56,7 @@ $result_products = $conn->query($sql_products);
         }
 
         a {
-            color: #007bff;
+            color: #4CAF50;
             text-decoration: none;
         }
 
