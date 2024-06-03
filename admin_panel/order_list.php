@@ -111,7 +111,7 @@
                     }
                     echo "</td>";
                     echo "<td>" . $row["total_quantity"] . "</td>";
-                    echo "<td><a href='edit_order.php?id=" . $row["order_id"] . "'>Edit</a> | <a href='delete_order.php?id=" . $row["order_id"] . "'>Delete</a></td>";
+                    echo "<td><a href='edit_order.php?id=" . $row["order_id"] . "'>Edit</a> - <a href='delete_order.php?id=" . $row["order_id"] . "'>Delete</a></td>";
                     
                     echo "</tr>";
                 }
