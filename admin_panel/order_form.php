@@ -16,7 +16,6 @@ session_start();
 <body>
     <div class="container">
         <h1>Sipariş Ver - Kargo Detayları</h1>
-        <a href="dashboard.php" class="btn">Dashboard'a Dön</a>
         <div class="row">
             <div class="col-75">
                 <div class="order-form">
@@ -73,6 +72,7 @@ session_start();
                         <br>
                         <input type="submit" class="btn" value="İleri" onclick="combineNames()">
                     </form>
+                    <br><br><a href="cart.php" class="btn">Sepete Geri Dön</a>
                 </div>
             </div>
         </div>

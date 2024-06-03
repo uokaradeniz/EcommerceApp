@@ -1,22 +1,3 @@
-<?php
-include 'db_connect.php';
-
-// Form gönderildiğinde
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Formdan gelen kullanıcı adı ve şifre
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-
-    // Kullanıcıyı veritabanına ekle
-    $sql = "INSERT INTO users (username, password) VALUES ('$username', '$password')";
-    if ($conn->query($sql) === TRUE) {
-        echo "Kullanıcı başarıyla oluşturuldu.";
-    } else {
-        echo "Hata: " . $sql . "<br>" . $conn->error;
-    }
-}
-?>
-
 <!DOCTYPE html>
 <html>
 
@@ -90,8 +71,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             font-size: 16px;
             cursor: pointer;
             transition: background-color 0.3s;
+            text-decoration: none;
         }
-
     </style>
 </head>
 
@@ -106,6 +87,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="submit" value="Kayıt Ol">
         </form><br>
         <a href="user_login.php">Geri Dön</a>
+        <?php
+        include 'db_connect.php';
+
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $username = $_POST['username'];
+            $password = $_POST['password'];
+
+            $sql = "INSERT INTO users (username, password) VALUES ('$username', '$password')";
+
+            if ($conn->query($sql) === TRUE) {
+                echo "<br><br>Hesabınız başarıyla oluşturuldu.";
+            } else {
+                echo "Hata: " . $sql . "<br>" . $conn->error;
+            }
+        }
+        ?>
     </div>
 
 </body>

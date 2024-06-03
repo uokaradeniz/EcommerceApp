@@ -135,7 +135,7 @@ $result_products = $conn->query($sql_products);
                     <a href="cart.php"> Sepet</a>
                 </li>
                 <li><a href="contact.php">İletişim</a></li>
-                <li><a href="index.php" style="color: red;">Admin Panel(Debugging için)</a></li>
+                <li><a href="index.php" style="color: red;">Admin Panel (Debug)</a></li>
             </ul>
         </nav>
     </header>
