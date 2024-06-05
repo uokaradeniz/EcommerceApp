@@ -1,32 +1,25 @@
 <?php
 session_start();
 
-// Sepetten ürün silme işlemi
 if (isset($_GET['remove']) && isset($_SESSION['cart'])) {
     $remove_id = $_GET['remove'];
 
-    // Sepetten kaldırılacak ürünün indisini bul
     foreach ($_SESSION['cart'] as $key => $item) {
         if ($item['product_id'] == $remove_id) {
-            // İlgili ürünü sepetten kaldır
             unset($_SESSION['cart'][$key]);
             break;
         }
     }
 
-    // Yeniden sırala
     $_SESSION['cart'] = array_values($_SESSION['cart']);
 
-    // Yönlendir
     header('Location: cart.php');
     exit();
 }
 
-// Sepetteki ürün miktarını arttırma işlemi
 if (isset($_GET['increase']) && isset($_SESSION['cart'])) {
     $increase_id = $_GET['increase'];
 
-    // İlgili ürünün miktarını arttır
     foreach ($_SESSION['cart'] as &$item) {
         if ($item['product_id'] == $increase_id) {
             $item['product_quantity']++;
@@ -34,16 +27,13 @@ if (isset($_GET['increase']) && isset($_SESSION['cart'])) {
         }
     }
 
-    // Yönlendir
     header('Location: cart.php');
     exit();
 }
 
-// Sepetteki ürün miktarını azaltma işlemi
 if (isset($_GET['decrease']) && isset($_SESSION['cart'])) {
     $decrease_id = $_GET['decrease'];
 
-    // İlgili ürünün miktarını azalt
     foreach ($_SESSION['cart'] as &$item) {
         if ($item['product_id'] == $decrease_id) {
             if ($item['product_quantity'] > 1) {
@@ -53,7 +43,6 @@ if (isset($_GET['decrease']) && isset($_SESSION['cart'])) {
         }
     }
 
-    // Yönlendir
     header('Location: cart.php');
     exit();
 }
@@ -150,7 +139,7 @@ if (isset($_GET['decrease']) && isset($_SESSION['cart'])) {
                 echo '<th>Fiyat (TL)</th>';
                 echo '<th>Adet</th>';
                 echo '<th>Toplam (TL)</th>';
-                echo '<th>İşlem</th>'; // Yeni kolon: İşlem
+                echo '<th>İşlem</th>';
                 echo '</tr>';
                 echo '</thead>';
                 echo '<tbody>';

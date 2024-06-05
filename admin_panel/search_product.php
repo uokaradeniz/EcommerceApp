@@ -7,7 +7,6 @@
     <title>Arama Sonuçları - UOKBurada</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Add CSS styles for the search results */
         .product {
             border: 1px solid #ccc;
             border-radius: 8px;
@@ -48,7 +47,6 @@
             font-size: 16px;
         }
 
-        /* Additional styles for the search results */
         .search-results {
             display: flex;
             flex-wrap: wrap;
@@ -62,14 +60,10 @@
 </head>
 
 <body>
-    <header>
-        <!-- Your header content -->
-    </header>
     <main>
         <h1>Arama Sonuçları</h1>
         <div class="search-results">
             <?php
-            // PHP code to display search results
             include 'db_connect.php';
             if (isset($_GET['query'])) {
                 $search_query = $_GET['query'];
@@ -92,9 +86,6 @@
             ?>
         </div>
     </main>
-    <footer>
-        <!-- Your footer content -->
-    </footer>
 </body>
 
 </html>
